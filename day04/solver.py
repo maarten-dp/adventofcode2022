@@ -6,18 +6,11 @@ def get_range(sections):
     return set(range(start, end + 1))
 
 
-def get_ranges(line):
-    sections1, sections2 = line.split(",")
-    range1 = get_range(sections1)
-    range2 = get_range(sections2)
-    return range1, range2
-
-
 @expected_test_result(2)
 def solve1(input):
     containing_pairs = 0
     for line in input.strip().split("\n"):
-        range1, range2 = get_ranges(line)
+        range1, range2 = map(get_range, line.split(","))
         containing_pairs += range1.issubset(range2) or range2.issubset(range1)
     return containing_pairs
 
@@ -26,6 +19,6 @@ def solve1(input):
 def solve2(input):
     overlapping_pairs = 0
     for line in input.strip().split("\n"):
-        range1, range2 = get_ranges(line)
+        range1, range2 = map(get_range, line.split(","))
         overlapping_pairs += bool(range1.intersection(range2))
     return overlapping_pairs
